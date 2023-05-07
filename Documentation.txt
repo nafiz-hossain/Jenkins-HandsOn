@@ -55,3 +55,22 @@ This may also be found at: /home/tigerit/.jenkins/secrets/initialAdminPassword
 *************************************************************
 *************************************************************
 
+
+Setup Trigger the Jenkins Build Automatically after every GitHub commits
+(Here I am building SeleniumAutomationFramework from github and building periodically after a push)
+
+
+Steps 1:
+Create a new jenkins job, created a job for compile and run a maven project.
+
+
+Steps 2:
+Add github repository url jenkins configuration
+
+Steps 3: 
+Add a new webhook in github. Setting > Webhook
+
+Steps 4:
+
+
+

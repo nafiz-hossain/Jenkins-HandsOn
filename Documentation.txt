@@ -71,6 +71,18 @@ Steps 3:
 Add a new webhook in github. Setting > Webhook
 
 Steps 4:
+Forward localhost ip into public ip by using ngrok
 
+Steps 5:
+First I have to install ngrok by `sudo snap install ngrok`
+And then I have to sign up in ngrok.com and add my auth token in config by `ngrok config add-authtoken 2PZ8S1nRuxKYSu7ak8HWljUU3T4_3tpPBdoEu8BXb5HabWJoM`
 
+Steps 6:
+To run ngrok `ngrok http localhost:8080`
 
+Steps 7:
+Copy the new created url and add in Setting>Webhook by adding `/github-webhook/` at the end of the new created URL
+and save
+
+Steps 8: Now make a change on main project and push the change into github remote repository and BANGGG.
+The code executes itself.

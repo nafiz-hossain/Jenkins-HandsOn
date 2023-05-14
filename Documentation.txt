@@ -67,7 +67,8 @@ Create a new jenkins job, created a job for compile and run a maven project.
 Steps 2:
 Add github repository url jenkins configuration
 
-Steps 3: 
+Steps 3:
+
 Add a new webhook in github. Setting > Webhook
 
 Steps 4:

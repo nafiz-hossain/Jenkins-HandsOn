@@ -52,20 +52,20 @@ pipeline {
 
             steps{
                 sh '''
-            updateNpm="no"
-            appName="commchat-agent"
-
-            #npm install on condition
-            cd /home/tigerit/TigerIT/projects/communicator-desktop-pwa/
-
-            if [ "$updateNpm" = "yes" ]; then
-                npm i
-            
-            fi
-            cd /home/tigerit/TigerIT/projects/communicator-desktop-pwa/electron
-            if [ "$updateNpm" = "yes" ]; then
-                npm i
-            fi
+                updateNpm="no"
+                appName="commchat-agent"
+    
+                #npm install on condition
+                cd /home/tigerit/TigerIT/projects/communicator-desktop-pwa/
+    
+                if [ "$updateNpm" = "yes" ]; then
+                    npm i
+                
+                fi
+                cd /home/tigerit/TigerIT/projects/communicator-desktop-pwa/electron
+                if [ "$updateNpm" = "yes" ]; then
+                    npm i
+                fi
         '''
             }
         }
@@ -74,18 +74,21 @@ pipeline {
 
             steps{
                 sh '''
-        cd ~/TigerIT/projects/communicator-desktop-pwa/electron/
-        ionic build -c=staging
-        npx cap sync @capacitor-community/electron
-        cd electron/
-        
-        if [ "$appName" = "commchat" ]; then
-        npm run electron:build-linux
-        fi
-        
-        if [ "$appName" = "agent" ]; then
-        npm run electron:build-linux-agent
-        fi
+                
+                    appName="agent"
+                    cd ~/TigerIT/projects/communicator-desktop-pwa/
+                    ionic build -c=staging
+            
+                    npx cap sync @capacitor-community/electron
+                    cd electron/
+                    
+                    if [ "$appName" = "commchat" ]; then
+                    npm run electron:build-linux
+                    fi
+                    
+                    if [ "$appName" = "agent" ]; then
+                    npm run electron:build-linux-agent
+                    fi
 
         
         '''

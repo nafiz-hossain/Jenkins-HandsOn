@@ -1,21 +1,21 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Checkout') {
-      steps {
-        sh '''
+    stages {
+        stage('Checkout') {
+            steps {
+                sh '''
 
             cd ~/TigerIT/projects/communicator-desktop-pwa/
-
-
-
+            
+            
+            
             branchName="dev"
             environment="local'"
             gitChange="reset"
             iOSUser="yes"
-
-
+            
+            
             #Print the splitted words
             echo "App Name : $appName"
             echo "Branch Name : $branchName"
@@ -23,13 +23,13 @@ pipeline {
             echo "Update Npm (yes/no) : $updateNpm"
             echo "Git change (stash/reset) : $gitChange"
             echo "iOS user (yes/no) : $iOSUser"
+            
+            
+            
+            
 
-
-
-
-
-
-
+            
+            
             if [ "$gitChange" = "stash" ]; then
                         git stash
                         git fetch
@@ -37,7 +37,7 @@ pipeline {
             	    git pull origin $branchName
             	    git stash pop
             fi
-
+            
             if [ "$gitChange" = "reset" ]; then
                 git reset --hard
                 git fetch
@@ -45,51 +45,53 @@ pipeline {
                 git pull origin $branchName
             fi
         '''
-      }
-    }
+            }
+        }
 
         stage ('Dependency Installation'){
 
-        steps{
-        sh '''
+            steps{
+                sh '''
             updateNpm="no"
             appName="commchat-agent"
 
             #npm install on condition
+            cd /home/tigerit/TigerIT/projects/communicator-desktop-pwa/
+
             if [ "$updateNpm" = "yes" ]; then
                 npm i
-
+            
             fi
-            cd electron/
+            cd /home/tigerit/TigerIT/projects/communicator-desktop-pwa/electron
             if [ "$updateNpm" = "yes" ]; then
                 npm i
             fi
         '''
-    }
-    }
+            }
+        }
 
-    stage ('Build'){
+        stage ('Build'){
 
-        steps{
-        sh '''
+            steps{
+                sh '''
         cd ~/TigerIT/projects/communicator-desktop-pwa/electron/
-        ionic serve -c=staging
+        ionic build -c=staging
         npx cap sync @capacitor-community/electron
         cd electron/
-
+        
         if [ "$appName" = "commchat" ]; then
         npm run electron:build-linux
         fi
-
+        
         if [ "$appName" = "agent" ]; then
         npm run electron:build-linux-agent
         fi
 
-
+        
         '''
-    }
-    }
+            }
+        }
 
 
-  }
+    }
 }
